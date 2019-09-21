@@ -1,44 +1,53 @@
 package cc.sitec.generator;
 
-
+import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
-import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 /**
  * @author keeley
+ * https://mybatis.plus/config/generator-config.html#fileoverride
  */
 public class GeneratorServiceEntity {
-    public static void main(String[] args) {
-        String packageName = "cc.sitec.result";
-        generateByTables(packageName, "xxl_job_group", "xxl_job_info");
+	private static Properties properties;
+    public static void main(String[] args) throws IOException {
+		initProperties();
+        String packageName = "com.sibu.mall.accountant.persistence";
+        generateByTables(packageName,Config.tableNames);
     }
 
-    private static void generateByTables(boolean serviceNameStartWithI, String packageName, String... tableNames) {
+    private static void generateByTables(String packageName, String... tableNames) {
         GlobalConfig config = new GlobalConfig().setActiveRecord(false)
-                .setAuthor("keeley")
-                .setOutputDir("D:\\wljs\\code\\keeley\\mybatisplusgenerator\\src\\main\\java\\cc\\sitec\\result")
+                .setAuthor("generate-auto")
+                .setOutputDir(Config.outPath)
                 .setBaseResultMap(true)
 				.setBaseColumnList(true)
-                .setOpen(false)
-                // .setServiceName("%sService")
+                .setOpen(true)
+                .setIdType(IdType.AUTO)
                 .setFileOverride(true);
 
 
-        DataSourceConfig dataSourceConfig = new DataSourceConfig().setDbType(DbType.MYSQL)
-                .setUrl("jdbc:mysql://localhost:3306/xxl_job")
-                .setUsername("root")
-                .setPassword("123456")
-                .setDriverName("com.mysql.jdbc.Driver");
+        DataSourceConfig dataSourceConfig = new DataSourceConfig()
+                .setUrl(Config.jdbcUrl)
+                .setUsername(Config.jdbcUserName)
+                .setPassword(Config.jdbcPassword)
+                .setDriverName(Config.jdbcDriverName);
 
         StrategyConfig strategyConfig = new StrategyConfig()
                 .setCapitalMode(true)
                 .setEntityLombokModel(true)
-                // 不设置setInclude就是映射全库的表
-                .setInclude(tableNames)
+                .setColumnNaming(NamingStrategy.underline_to_camel)
                 .setNaming(NamingStrategy.underline_to_camel);
+        if(tableNames.length>=0) {
+            // 不设置setInclude就是映射全库的表
+            strategyConfig.setInclude(tableNames);
+        }
 
         InjectionConfig cfg = new InjectionConfig() {
             @Override
@@ -56,12 +65,14 @@ public class GeneratorServiceEntity {
                 .setTemplate(templateConfig)
                 .setDataSource(dataSourceConfig)
                 .setStrategy(strategyConfig)
-                .setPackageInfo(new PackageConfig().setParent(packageName).setMapper("dao").setXml("dao"))
+                .setPackageInfo(new PackageConfig().setParent(packageName).setMapper("dao").setEntity("entity").setXml("dao"))
                 .setCfg(cfg)
                 .execute();
     }
 
-    private static void generateByTables(String packageName, String... tableNames) {
-        generateByTables(true, packageName, tableNames);
-    }
+    private static void initProperties() throws IOException {
+		Properties properties = new Properties();
+		InputStream in = GeneratorServiceEntity.class.getClassLoader().getResourceAsStream("application.properties");
+		properties.load(in);
+	}
 }
