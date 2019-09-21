@@ -1,10 +1,10 @@
 package cc.sitec.generator;
 
 
-import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 /**
@@ -21,6 +21,7 @@ public class GeneratorServiceEntity {
                 .setAuthor("keeley")
                 .setOutputDir("D:\\wljs\\code\\keeley\\mybatisplusgenerator\\src\\main\\java\\cc\\sitec\\result")
                 .setBaseResultMap(true)
+				.setBaseColumnList(true)
                 .setOpen(false)
                 // .setServiceName("%sService")
                 .setFileOverride(true);
