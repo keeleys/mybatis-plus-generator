@@ -21,6 +21,7 @@ public class Config {
 	public static String jdbcDriverName;
 	public static String outPath;
 	public static String[] tableNames;
+	public static String packageName;
 	static {
 		try {
 			initProperties();
@@ -33,6 +34,7 @@ public class Config {
 		InputStream in = GeneratorServiceEntity.class.getClassLoader().getResourceAsStream("application.properties");
 		properties.load(in);
 		String tableStr = properties.getProperty("gen.tableNames","");
+		packageName = properties.getProperty("gen.packageName","");
 		jdbcUrl = properties.getProperty("jdbc.url");
 		jdbcUserName = properties.getProperty("jdbc.username");
 		jdbcPassword = properties.getProperty("jdbc.password");

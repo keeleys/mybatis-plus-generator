@@ -7,18 +7,14 @@ import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 /**
  * @author keeley
  * https://mybatis.plus/config/generator-config.html#fileoverride
  */
 public class GeneratorServiceEntity {
-	private static Properties properties;
     public static void main(String[] args) throws IOException {
-		initProperties();
-        String packageName = "com.sibu.mall.accountant.persistence";
+        String packageName = Config.packageName;
         generateByTables(packageName,Config.tableNames);
     }
 
@@ -70,10 +66,4 @@ public class GeneratorServiceEntity {
                 .setCfg(cfg)
                 .execute();
     }
-
-    private static void initProperties() throws IOException {
-		Properties properties = new Properties();
-		InputStream in = GeneratorServiceEntity.class.getClassLoader().getResourceAsStream("application.properties");
-		properties.load(in);
-	}
 }
