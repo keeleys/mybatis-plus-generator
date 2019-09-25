@@ -1,3 +1,3 @@
 ## mybatis-plus generator 
-1. src\main\resources\application.properties
-2. run cc.sitec.generator.GeneratorServiceEntity.main
+1. 修改配置 src\main\resources\application.properties
+2. 运行代码 cc.sitec.generator.GeneratorServiceEntity
