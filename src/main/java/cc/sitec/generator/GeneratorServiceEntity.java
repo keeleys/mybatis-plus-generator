@@ -43,6 +43,7 @@ public class GeneratorServiceEntity {
                 .setCapitalMode(true)
                 .setEntityLombokModel(true)
                 .setColumnNaming(NamingStrategy.underline_to_camel)
+				.setEntityColumnConstant(true)
                 .setNaming(NamingStrategy.underline_to_camel);
         if(tableNames.length>=0) {
             // 不设置setInclude就是映射全库的表
