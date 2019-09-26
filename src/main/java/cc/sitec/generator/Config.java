@@ -39,7 +39,9 @@ public class Config {
 		jdbcUserName = properties.getProperty("jdbc.username");
 		jdbcPassword = properties.getProperty("jdbc.password");
 		jdbcDriverName = properties.getProperty("jdbc.driverName");
-		tableNames = tableStr.split(",");
+		if(!tableStr.isEmpty()) {
+			tableNames = tableStr.split(",");
+		}
 		outPath = properties.getProperty("gen.outPath");
 
 	}

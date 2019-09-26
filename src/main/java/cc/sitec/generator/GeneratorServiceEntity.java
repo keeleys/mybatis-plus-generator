@@ -41,7 +41,7 @@ public class GeneratorServiceEntity {
                 .setColumnNaming(NamingStrategy.underline_to_camel)
 				.setEntityColumnConstant(true)
                 .setNaming(NamingStrategy.underline_to_camel);
-        if(tableNames.length>=0) {
+        if(tableNames!=null && tableNames.length>=0) {
             // 不设置setInclude就是映射全库的表
             strategyConfig.setInclude(tableNames);
         }
@@ -54,7 +54,7 @@ public class GeneratorServiceEntity {
         };
 
         // 配置模板 null代表不生成
-        TemplateConfig templateConfig = new TemplateConfig()
+        TemplateConfig templateConfig = new TemplateConfig().setEntity("entity.java.vm")
                 .setController(null).setService(null).setServiceImpl(null);
 
         new AutoGenerator()
