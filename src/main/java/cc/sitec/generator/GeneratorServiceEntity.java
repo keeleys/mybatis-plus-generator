@@ -25,6 +25,7 @@ public class GeneratorServiceEntity {
                 .setBaseResultMap(true)
 				.setBaseColumnList(true)
                 .setOpen(true)
+				.setEnableCache(false)
                 .setIdType(IdType.AUTO)
                 .setFileOverride(true);
 
