@@ -27,7 +27,6 @@ import lombok.experimental.Accessors;
 #else
 @EqualsAndHashCode(callSuper = false)
 #end
-@Accessors(chain = true)
 #end
 #if(${table.convert})
 @TableName("${table.name}")
